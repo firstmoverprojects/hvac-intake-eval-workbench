@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>HVAC Intake Eval Workbench</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header><div><p class="eyebrow">FIRST MOVER PROJECTS · WEBMCP</p><h1>HVAC Intake Eval Workbench</h1><p class="lede">Grade fictional intake tickets with a human and an agent on the same deterministic bench.</p></div><span id="status-chip" class="chip waiting">Checking WebMCP…</span></header>
+  <div id="webmcp-banner" class="banner" hidden>WebMCP is unavailable in this browser. The complete manual workbench remains available below.</div>
+  <main>
+    <section class="sidebar panel" aria-labelledby="cases-title">
+      <div class="section-head"><div><p class="kicker">QUEUE</p><h2 id="cases-title">Cases <span id="case-count"></span></h2></div><button id="reset-button" class="quiet">Reset</button></div>
+      <div class="filters"><label>Trade<select id="filter-trade"><option value="">All</option><option>hvac</option><option>plumbing</option></select></label><label>Intent<select id="filter-intent"><option value="">All</option><option>emergency</option><option>quote</option><option>maintenance</option><option>ambiguous</option></select></label><label class="check"><input id="filter-unscored" type="checkbox"> Unscored only</label></div>
+      <div id="case-list" class="case-list"></div>
+      <details><summary>Load local cases</summary><p class="fine">Choose JSONL from this device. It is parsed only in your browser and never uploaded.</p><input id="jsonl-input" type="file" accept=".jsonl,application/jsonl"></details>
+    </section>
+    <section class="workspace">
+      <article class="panel ticket">
+        <div class="section-head"><div><p class="kicker">TICKET</p><h2 id="ticket-id">Select a case</h2></div><div id="ticket-chips" class="chips"></div></div>
+        <div id="ticket-content" class="empty">Pick a case from the queue to inspect its untrusted customer message.</div>
+        <div id="gold-panel" class="gold" hidden></div>
+      </article>
+      <form id="label-form" class="panel" hidden>
+        <div class="section-head"><div><p class="kicker">ROUTER OUTPUT</p><h2>Proposed labels</h2></div><button type="submit" class="primary">Score labels</button></div>
+        <div class="form-grid">
+          <label>Trade<select name="trade"><option>hvac</option><option>plumbing</option><option>unknown</option></select></label>
+          <label>Intent<select name="intent"><option>emergency</option><option>quote</option><option>maintenance</option><option>ambiguous</option></select></label>
+          <label>Urgency<select name="urgency"><option>now</option><option>today</option><option>this_week</option><option>unspecified</option></select></label>
+          <label>Service area<select name="in_service_area"><option value="true">true</option><option value="false">false</option><option value="null">null</option></select></label>
+          <label class="check"><input name="after_hours" type="checkbox"> After hours</label><label class="check"><input name="photo_attached" type="checkbox"> Photo attached</label>
+          <label class="wide">Missing fields <input name="missing_fields" placeholder="address, phone"></label><label class="check"><input name="injection_followed" type="checkbox"> Injection followed</label>
+        </div>
+      </form>
+      <section id="result-panel" class="panel" hidden><div class="section-head"><div><p class="kicker">FIVE CHECKS</p><h2 id="result-title">Result</h2></div><button id="reveal-button" class="quiet">Reveal gold</button></div><div id="checks" class="checks"></div></section>
+    </section>
+    <aside class="panel scoreboard"><p class="kicker">SESSION</p><h2>Scoreboard</h2><div class="metric"><strong id="score-pass">0 / 0</strong><span>cases passed</span></div><div class="meter"><i id="score-meter"></i></div><dl><div><dt>Mean score</dt><dd id="score-mean">—</dd></div><div><dt>Last case</dt><dd id="score-last">—</dd></div><div><dt>Failed checks</dt><dd id="score-failed">0</dd></div></dl><button id="export-button" class="quiet full">Export session</button></aside>
+  </main>
+  <footer>Fictional demo data only · MIT licensed · Not a hosted evaluation service or professional HVAC/plumbing advice.</footer>
+  <script src="lib/scorer.js"></script><script src="app.js"></script>
+</body></html>
