@@ -33,3 +33,12 @@ The “Load local cases” control accepts newline-delimited JSON and parses it 
 First Mover Projects’ pre-existing HVAC/Plumbing Intake Eval Pack supplied the label and deterministic scorer contracts. This workbench, its WebMCP tool surface, browser scorer port, and the 12 fictional `demo-*` cases are new submission-period work. No case line, customer message, shop, or street from the paid JSONL is included here.
 
 Copyright © 2026 First Mover Projects. Released under the MIT License. This is not professional HVAC/plumbing advice or a hosted evaluation service.
+
+## Commercial packs (First Mover Projects)
+
+If you run a local service shop and after-hours web leads die on the form (no callback path, weak intake), these are the paid packs that sit next to this open workbench:
+
+- **$79 After-Hours Lead & Intake Eval** — score the public intake path before you change tools: https://firstmoverprojects.gumroad.com/l/ojfjyd?utm_source=github&utm_medium=readme&utm_campaign=hvac_workbench&utm_content=ojfjyd
+- **$500 Conversion Fix** — one-time fix for the leak once you’ve seen the score: https://firstmoverprojects.gumroad.com/l/gqxatj?utm_source=github&utm_medium=readme&utm_campaign=hvac_workbench&utm_content=gqxatj
+
+Also on The Runway: [HVAC Intake Eval Pack](https://launchfree.io/listings/hvac-intake-eval-pack).
