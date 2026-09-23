@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Dental Empty-Chair Leak Estimator | First Mover Projects</title>
+<meta name="description" content="Free diagnostic demo: estimate weekly and monthly revenue at risk from dental no-shows and late cancels. Booking/ops only — not clinical advice. Reply EMPTY for a free 5-question check."/>
+<meta name="robots" content="index,follow"/>
+<style>
+ body{font-family:system-ui,-apple-system,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;color:#0f172a;line-height:1.45;background:#fff}
+ .tag{display:inline-block;background:#0f766e;color:#fff;padding:.2rem .6rem;border-radius:999px;font-size:.75rem;font-weight:600;margin-right:.35rem}
+ .tag2{display:inline-block;background:#1d4ed8;color:#fff;padding:.2rem .6rem;border-radius:999px;font-size:.75rem;font-weight:600}
+ h1{font-size:1.45rem;margin:.75rem 0;color:#0f172a}
+ h2{font-size:1.05rem;margin:1.25rem 0 .5rem;color:#0f172a}
+ .card{border:1px solid #cbd5e1;border-radius:12px;padding:1rem;margin:1rem 0;background:#f8fafc}
+ .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:#64748b;margin-bottom:.35rem}
+ .cta{background:#0f766e;color:#fff;padding:1rem;border-radius:12px;margin:1rem 0}
+ .cta a{color:#fff;text-decoration:underline}
+ .cta a.cta-btn{display:inline-block;background:#fff;color:#0f766e !important;font-weight:700;padding:.65rem 1rem;border-radius:8px;text-decoration:none;margin-top:.5rem}
+ .cta a.cta-btn:hover{background:#ecfdf5}
+ .warn{background:#fff7ed;border:1px solid #fdba74;border-radius:12px;padding:1rem;margin:1rem 0;color:#0f172a}
+ .hook{background:#ecfdf5;border:1px solid #5eead4;border-radius:12px;padding:1rem;margin:1rem 0;color:#0f172a}
+ .action{background:#eff6ff;border:1px solid #93c5fd;border-radius:12px;padding:1rem;margin:1rem 0;color:#0f172a}
+ a{color:#1d4ed8}
+ .muted{color:#64748b;font-size:.9rem}
+ .fine{color:#64748b;font-size:.8rem}
+ .grid{display:grid;gap:.75rem}
+ @media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+ label.field{display:grid;gap:.25rem;font-size:.85rem;font-weight:600;color:#334155}
+ input[type=number],select{width:100%;border:1px solid #cbd5e1;border-radius:8px;padding:.55rem .65rem;font-size:1rem;box-sizing:border-box;background:#fff;color:#0f172a}
+ .out-grid{display:grid;gap:.65rem}
+ @media(min-width:560px){.out-grid{grid-template-columns:1fr 1fr}}
+ .metric{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:.75rem}
+ .metric .num{font-size:1.35rem;font-weight:800;color:#0f172a;margin:.15rem 0 0}
+ .metric .num.risk{color:#b45309}
+ .metric .num.ok{color:#0f766e}
+ .metric .num.mixed{color:#a16207}
+ .metric .num.leak{color:#b91c1c}
+ .secondary{margin:1rem 0;font-size:.9rem}
+ .secondary a{margin-right:.35rem}
+ ul{margin:.4rem 0 .4rem 1.1rem;padding:0}
+ li{margin:.25rem 0}
+ .score-pill{display:inline-block;padding:.2rem .55rem;border-radius:999px;font-size:.85rem;font-weight:700;letter-spacing:.02em}
+ .score-leak{background:#fee2e2;color:#991b1b}
+ .score-mixed{background:#fef3c7;color:#92400e}
+ .score-tight{background:#d1fae5;color:#065f46}
+</style>
+</head>
+<body>
+<span class="tag">FREE DIAGNOSTIC DEMO</span>
+<span class="tag2">DENTAL · BOOKING / OPS</span>
+<h1>Dental Empty-Chair Leak Estimator</h1>
+<p class="muted">First Mover Projects · estimate from <em>your</em> numbers · not clinical advice · not a sales guarantee</p>
+
+<div class="hook">
+<strong>Your hygienist is ready. The patient never confirmed — and never showed.</strong>
+<p style="margin:.5rem 0 0">An empty chair is pure lost revenue. Hygiene, restorative, and consult slots that open under 24 hours often stay empty unless you already run a confirm + waitlist habit. Type last week’s numbers below for an ESTIMATE of the leak — then one plain first action.</p>
+</div>
+
+<div class="card">
+<div class="label">Your dental office numbers (edit freely)</div>
+<div class="grid" id="inputs">
+  <label class="field">Appointments last week
+    <input type="number" id="appts" min="0" step="1" value="48" inputmode="numeric"/>
+  </label>
+  <label class="field">No-shows + late cancels (&lt;24h)
+    <input type="number" id="noshows" min="0" step="1" value="7" inputmode="numeric"/>
+  </label>
+  <label class="field">Avg revenue per completed appointment ($)
+    <input type="number" id="avgRev" min="0" step="1" value="185" inputmode="decimal"/>
+  </label>
+  <label class="field">Confirm + waitlist habit
+    <select id="waitlist">
+      <option value="none">Phone tag only — chair usually stays empty</option>
+      <option value="one" selected>Some texts / sometimes</option>
+      <option value="full">Written confirm (48h + 2h) + same-day waitlist</option>
+    </select>
+  </label>
+</div>
+<p class="fine" style="margin:.75rem 0 0">Defaults are illustrative only — replace with your last week. Outputs update live. Booking/ops math only.</p>
+</div>
+
+<div class="card">
+<div class="label">ESTIMATE · from your inputs above</div>
+<div class="out-grid">
+  <div class="metric"><div class="label">No-show / late-cancel rate</div><div class="num" id="outRate">—</div></div>
+  <div class="metric"><div class="label">Leak score</div><div class="num" id="outScore">—</div></div>
+  <div class="metric"><div class="label">Weekly $ leaked (ESTIMATE)</div><div class="num risk" id="outWeekly">—</div></div>
+  <div class="metric"><div class="label">Monthly $ at risk (×4 ESTIMATE)</div><div class="num risk" id="outMonthly">—</div></div>
+</div>
+<p class="fine" style="margin:.75rem 0 0" id="outExplain">—</p>
+</div>
+
+<div class="action">
+<div class="label">Recommended first action</div>
+<p style="margin:.35rem 0 0" id="outAction"><strong>—</strong></p>
+</div>
+
+<div class="warn">
+<strong>Honest framing</strong>
+<ul>
+<li>This is an <strong>ESTIMATE</strong> from the numbers you type — not a verified case study and not a guarantee of recovered revenue.</li>
+<li><strong>Booking and ops only.</strong> No clinical advice, diagnosis, treatment claims, or insurance coding guidance.</li>
+<li>Confirm texts and waitlist pings are operational habits — you keep your own phone/SMS and practice-management tool.</li>
+</ul>
+</div>
+
+<div class="cta">
+<strong>Free 5-question Empty-Chair Leak Check</strong><br/>
+Want a plain EMPTY / MIXED / TIGHT read on your real week? Reply <strong>EMPTY</strong> (or tap below). No software pitch. No checkout for an unbuilt pack.<br/>
+<a class="cta-btn" href="mailto:firstmoverprojects@agentmail.to?subject=EMPTY%20chair%20leak%20check&amp;body=Reply%20EMPTY%20%E2%80%94%20I%27d%20like%20the%20free%205-question%20Empty-Chair%20Leak%20Check.">Email EMPTY → firstmoverprojects@agentmail.to</a>
+<p class="fine" style="margin:.65rem 0 0;color:#ecfdf5">Chair-based shop (dental, salon, chiro, med spa)? Reply <strong>EMPTY</strong> for the free 5-question check. Soft note only — if you ask how to fix it after the check, a setup call or pack <em>may</em> follow; nothing to buy on this page.</p>
+</div>
+
+<p class="secondary">
+<strong>Also free diagnostics:</strong>
+<a href="med-spa-noshow-leak.html">Med spa no-show leak</a> ·
+<a href="hvac-missed-lead-roi.html">HVAC missed-lead ROI</a> ·
+<a href="hvac-79-kit-unpack.html">Kit unpack</a>
+</p>
+
+<p class="muted">© 2026 First Mover Projects · dental ops estimate · not clinical or financial advice · PO Box 153, Firth, NE 68358-0153</p>
+<p class="fine">Leak score thresholds (footer): <strong>≥15% = EMPTY (LEAK)</strong> · <strong>5–15% = MIXED</strong> · <strong>&lt;5% = TIGHT</strong> (no-shows + late cancels ÷ appointments). Monthly = weekly × 4 (rough). Confirm/waitlist habit adjusts the recommended first action only — it does not invent recovered dollars.</p>
+
+<script>
+(function () {
+  function num(id) {
+    var v = parseFloat(document.getElementById(id).value);
+    return isFinite(v) && v >= 0 ? v : 0;
+  }
+  function fmtPct(n) {
+    return (Math.round(n * 10) / 10).toFixed(1).replace(/\.0$/, '') + '%';
+  }
+  function fmtMoney(n) {
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+  function scoreLabel(rate) {
+    if (rate >= 0.15) return { key: 'EMPTY', cls: 'leak', pill: 'score-leak' };
+    if (rate >= 0.05) return { key: 'MIXED', cls: 'mixed', pill: 'score-mixed' };
+    return { key: 'TIGHT', cls: 'ok', pill: 'score-tight' };
+  }
+  function firstAction(scoreKey, waitlist) {
+    if (waitlist === 'none') {
+      return 'Write a confirm sequence today: text 48 hours before AND 2 hours before every appointment. When a slot opens under 24h, text 2–3 patients who already asked for an earlier opening.';
+    }
+    if (waitlist === 'one') {
+      if (scoreKey === 'TIGHT') {
+        return 'Keep the occasional texts — lock them into a written habit: 48h confirm, 2h confirm, one-tap reschedule reply (BOOK), then same-day waitlist when someone cancels.';
+      }
+      return 'Make confirms automatic (48h + 2h) and waitlist texts automatic for every &lt;24h cancel so the chair does not sit empty. Warm recovery text within the hour if they miss — hope everything’s okay, not a lecture.';
+    }
+    if (scoreKey === 'EMPTY' || scoreKey === 'MIXED') {
+      return 'You already confirm and waitlist — tighten the weak step: log who never replies to the 48h text so front desk follows up once by phone before the 2h window.';
+    }
+    return 'Stay on the 48h + 2h confirm and same-day waitlist habit. Spot-check one week of replies so the sequence stays short — no new software required.';
+  }
+  function recalc() {
+    var appts = num('appts');
+    var noshows = num('noshows');
+    var avgRev = num('avgRev');
+    var waitlist = document.getElementById('waitlist').value;
+    if (noshows > appts && appts > 0) noshows = appts;
+
+    var rate = appts > 0 ? (noshows / appts) : 0;
+    var weekly = noshows * avgRev;
+    var monthly = weekly * 4;
+    var s = scoreLabel(rate);
+
+    document.getElementById('outRate').textContent = appts > 0 ? fmtPct(rate * 100) : '—';
+    document.getElementById('outScore').innerHTML = '<span class="score-pill ' + s.pill + '">' + s.key + '</span>';
+    document.getElementById('outScore').className = 'num ' + s.cls;
+    document.getElementById('outWeekly').textContent = fmtMoney(weekly);
+    document.getElementById('outMonthly').textContent = fmtMoney(monthly);
+    document.getElementById('outExplain').textContent =
+      appts > 0
+        ? ('From ' + Math.round(noshows) + ' no-shows/late cancels out of ' + Math.round(appts) +
+           ' appointments (~' + fmtPct(rate * 100) + '), at ~' + fmtMoney(avgRev) +
+           ' per completed visit, about ' + fmtMoney(weekly) +
+           '/week is the ESTIMATE tied to empty chairs — roughly ' + fmtMoney(monthly) +
+           '/month at ×4. Score ' + s.key + ' uses the footer thresholds. Confirm/waitlist habit shapes the first action only.')
+        : 'Enter appointments last week to see an ESTIMATE.';
+    document.getElementById('outAction').innerHTML = '<strong>' + firstAction(s.key, waitlist) + '</strong>';
+  }
+  ['appts', 'noshows', 'avgRev', 'waitlist'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', recalc);
+    document.getElementById(id).addEventListener('change', recalc);
+  });
+  recalc();
+})();
+</script>
+</body>
+</html>
