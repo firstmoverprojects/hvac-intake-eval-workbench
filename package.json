@@ -1,0 +1,15 @@
+{
+  "name": "hvac-intake-eval-workbench",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dependency-free browser workbench for deterministic HVAC and plumbing intake-label evaluation.",
+  "scripts": {
+    "start": "python3 -m http.server 8765 --bind 127.0.0.1",
+    "test": "node --test",
+    "check": "npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>HVAC Intake Eval Workbench</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,7 +12,7 @@
   <main>
     <section class="sidebar panel" aria-labelledby="cases-title">
       <div class="section-head"><div><p class="kicker">QUEUE</p><h2 id="cases-title">Cases <span id="case-count"></span></h2></div><button id="reset-button" class="quiet">Reset</button></div>
-      <div class="filters"><label>Trade<select id="filter-trade"><option value="">All</option><option>hvac</option><option>plumbing</option></select></label><label>Intent<select id="filter-intent"><option value="">All</option><option>emergency</option><option>quote</option><option>maintenance</option><option>ambiguous</option></select></label><label class="check"><input id="filter-unscored" type="checkbox"> Unscored only</label></div>
+      <div class="filters"><label>Channel<select id="filter-channel"><option value="">All</option><option>chat</option><option>email</option><option>sms</option><option>voicemail_transcript</option><option>web_form</option></select></label><label class="check"><input id="filter-unscored" type="checkbox"> Unscored only</label></div>
       <div id="case-list" class="case-list"></div>
       <details><summary>Load local cases</summary><p class="fine">Choose JSONL from this device. It is parsed only in your browser and never uploaded.</p><input id="jsonl-input" type="file" accept=".jsonl,application/jsonl"></details>
     </section>
@@ -49,5 +50,5 @@
     </div>
   </aside>
   <footer>Fictional demo data only · MIT licensed · Not a hosted evaluation service or professional HVAC/plumbing advice. · <a href="https://launchfree.io/listings/hvac-intake-eval-pack" target="_blank" rel="noopener">Also on The Runway</a></footer>
-  <script src="lib/scorer.js"></script><script src="app.js"></script>
+  <script src="lib/scorer.js"></script><script src="lib/cases.js"></script><script src="app.js"></script>
 </body></html>
