@@ -40,7 +40,7 @@
     $('ticket-id').textContent=id+' · '+c.shop_name;
     $('ticket-chips').innerHTML=['channel: '+c.channel,'after hours: '+c.after_hours,'service: '+c.in_service_area].map(x=>'<span>'+escapeHtml(x)+'</span>').join('');
     const fields=Object.entries(c.form_fields||{}).map(([k,v])=>'<div class="fact"><strong>'+escapeHtml(k)+'</strong>'+escapeHtml(v)+'</div>').join('');
-    const photo=c.photo_meta?'<div class="fact"><strong>Photo</strong>'+escapeHtml(c.photo_meta.filename)+' — '+escapeHtml(c.photo_meta.caption)+'</div>':'';
+    const photo=c.photo_meta?'<div class="fact"><strong>Photo</strong>'+escapeHtml(c.photo_meta.filename)+' - '+escapeHtml(c.photo_meta.caption)+'</div>':'';
     $('ticket-content').innerHTML='<p class="message">'+escapeHtml(c.customer_message)+'</p><div class="facts">'+fields+photo+'</div>';
     $('label-form').hidden=false; $('result-panel').hidden=!state.scores.has(id); $('gold-panel').hidden=!state.revealed.has(id);
     if(state.revealed.has(id)) $('gold-panel').textContent='Gold\n'+json(c.expected);
@@ -59,7 +59,7 @@
     return { case_id:labels.case_id,pass:result.pass,score:result.score,reason:result.reason,checks:result.checks,summary:(result.pass?'PASS':'FAIL')+' · '+result.score.toFixed(1)+' · '+labels.case_id };
   }
   function renderResult(result){$('result-title').textContent=(result.pass?'Pass':'Needs review')+' · '+result.score.toFixed(1);$('checks').innerHTML=Object.entries(result.checks).map(([k,v])=>'<div class="check-row"><strong>'+escapeHtml(k)+'</strong><span class="'+(v.pass?'pass':'fail')+'">'+(v.pass?'PASS':'FAIL')+'</span><span>'+escapeHtml(v.reason)+'</span></div>').join('');}
-  function renderScoreboard(){const s=scoreboard();$('score-pass').textContent=s.pass+' / '+s.n;$('score-mean').textContent=s.mean_score===null?'—':s.mean_score.toFixed(2);$('score-last').textContent=s.last_case||'—';$('score-failed').textContent=s.failed_checks;$('score-meter').style.width=(s.n?s.pass/s.n*100:0)+'%';}
+  function renderScoreboard(){const s=scoreboard();$('score-pass').textContent=s.pass+' / '+s.n;$('score-mean').textContent=s.mean_score===null?'-':s.mean_score.toFixed(2);$('score-last').textContent=s.last_case||'-';$('score-failed').textContent=s.failed_checks;$('score-meter').style.width=(s.n?s.pass/s.n*100:0)+'%';}
   function resetSession(){state.scores.clear();state.revealed.clear();state.lastScoredId=null;$('result-panel').hidden=true;$('gold-panel').hidden=true;if(state.openId&&findCase(state.openId))resetForm(findCase(state.openId));renderList();renderScoreboard();return {ok:true,summary:'Session scores and reveals cleared; cases retained.'};}
   function revealGold(id){const c=findCase(id);if(!c)return{error:'Unknown case_id: '+id};if(!state.scores.has(id))return{error:'Gold is locked until this case has a score.'};state.revealed.add(id);if(state.openId===id){$('gold-panel').textContent='Gold\n'+json(c.expected);$('gold-panel').hidden=false;}return{case_id:id,expected:c.expected,summary:'Gold revealed after score.'};}
   function exportSession(download){const payload={exported_at:new Date().toISOString(),scoreboard:scoreboard(),scores:[...state.scores.values()]};if(download){const url=URL.createObjectURL(new Blob([json(payload)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='intake-eval-session.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),0);}return payload;}

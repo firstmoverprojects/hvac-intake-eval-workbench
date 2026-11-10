@@ -67,12 +67,12 @@ Use `data/demo-3.jsonl` as the smallest valid example. Do not add real customer 
 
 ## Project layout
 
-- `app.js` — browser state, rendering, local-file loading, and WebMCP tools
-- `lib/scorer.js` — deterministic five-check scorer, usable in browser or Node
-- `lib/cases.js` — case and JSONL validation, usable in browser or Node
-- `data/` — synthetic demo fixtures
-- `test/` — dependency-free Node test suite
-- `.github/workflows/ci.yml` — free test and static-server CI
+- `app.js` - browser state, rendering, local-file loading, and WebMCP tools
+- `lib/scorer.js` - deterministic five-check scorer, usable in browser or Node
+- `lib/cases.js` - case and JSONL validation, usable in browser or Node
+- `data/` - synthetic demo fixtures
+- `test/` - dependency-free Node test suite
+- `.github/workflows/ci.yml` - free test and static-server CI
 
 The other top-level HTML files are linked, standalone First Mover Projects calculators or product examples. They do not participate in intake scoring.
 
