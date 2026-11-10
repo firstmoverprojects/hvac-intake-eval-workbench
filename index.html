@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>HVAC Intake Eval Workbench</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,7 +12,7 @@
   <main>
     <section class="sidebar panel" aria-labelledby="cases-title">
       <div class="section-head"><div><p class="kicker">QUEUE</p><h2 id="cases-title">Cases <span id="case-count"></span></h2></div><button id="reset-button" class="quiet">Reset</button></div>
-      <div class="filters"><label>Trade<select id="filter-trade"><option value="">All</option><option>hvac</option><option>plumbing</option></select></label><label>Intent<select id="filter-intent"><option value="">All</option><option>emergency</option><option>quote</option><option>maintenance</option><option>ambiguous</option></select></label><label class="check"><input id="filter-unscored" type="checkbox"> Unscored only</label></div>
+      <div class="filters"><label>Channel<select id="filter-channel"><option value="">All</option><option>chat</option><option>email</option><option>sms</option><option>voicemail_transcript</option><option>web_form</option></select></label><label class="check"><input id="filter-unscored" type="checkbox"> Unscored only</label></div>
       <div id="case-list" class="case-list"></div>
       <details><summary>Load local cases</summary><p class="fine">Choose JSONL from this device. It is parsed only in your browser and never uploaded.</p><input id="jsonl-input" type="file" accept=".jsonl,application/jsonl"></details>
     </section>
@@ -34,20 +35,20 @@
       </form>
       <section id="result-panel" class="panel" hidden><div class="section-head"><div><p class="kicker">FIVE CHECKS</p><h2 id="result-title">Result</h2></div><button id="reveal-button" class="quiet">Reveal gold</button></div><div id="checks" class="checks"></div></section>
     </section>
-    <aside class="panel scoreboard"><p class="kicker">SESSION</p><h2>Scoreboard</h2><div class="metric"><strong id="score-pass">0 / 0</strong><span>cases passed</span></div><div class="meter"><i id="score-meter"></i></div><dl><div><dt>Mean score</dt><dd id="score-mean">—</dd></div><div><dt>Last case</dt><dd id="score-last">—</dd></div><div><dt>Failed checks</dt><dd id="score-failed">0</dd></div></dl><button id="export-button" class="quiet full">Export session</button><p class="commercial-extra"><a href="after-hours-intake-checklist.html?utm_source=pages&amp;utm_medium=nav&amp;utm_campaign=traffic_engine&amp;utm_content=checklist">After-Hours Intake Leak Checklist</a></p>
+    <aside class="panel scoreboard"><p class="kicker">SESSION</p><h2>Scoreboard</h2><div class="metric"><strong id="score-pass">0 / 0</strong><span>cases passed</span></div><div class="meter"><i id="score-meter"></i></div><dl><div><dt>Mean score</dt><dd id="score-mean">-</dd></div><div><dt>Last case</dt><dd id="score-last">-</dd></div><div><dt>Failed checks</dt><dd id="score-failed">0</dd></div></dl><button id="export-button" class="quiet full">Export session</button><p class="commercial-extra"><a href="after-hours-intake-checklist.html?utm_source=pages&amp;utm_medium=nav&amp;utm_campaign=traffic_engine&amp;utm_content=checklist">After-Hours Intake Leak Checklist</a></p>
   </aside>
   </main>
   <aside class="commercial panel" aria-label="Commercial packs">
     <p class="kicker">FOR LOCAL SERVICE SHOPS</p>
-    <p class="commercial-lede">If after-hours web leads die on the form, score the intake path first — then fix the leak once you see the score.</p>
+    <p class="commercial-lede">If after-hours web leads die on the form, score the intake path first - then fix the leak once you see the score.</p>
     <div class="commercial-links">
       <a class="quiet" href="med-spa-noshow-leak.html?utm_source=pages&amp;utm_medium=nav&amp;utm_campaign=medspa_leak&amp;utm_content=index_nav">Med Spa No-Show Leak Estimator</a>
       <a class="quiet" href="dental-empty-chair-leak.html?utm_source=pages&amp;utm_medium=nav&amp;utm_campaign=dental_empty&amp;utm_content=index_nav">Dental Empty-Chair Leak Estimator</a>
       <a class="quiet" href="hvac-missed-lead-roi.html?utm_source=pages&amp;utm_medium=nav&amp;utm_campaign=hvac79_launch&amp;utm_content=missed_lead_roi">Missed-Lead ROI calculator</a>
       <a class="primary" href="https://firstmoverprojects.gumroad.com/l/ojfjyd?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=hvac_workbench&amp;utm_content=ojfjyd" target="_blank" rel="noopener">$79 After-Hours Intake Eval</a>
-      <a class="quiet" href="https://firstmoverprojects.gumroad.com/l/gqxatj?utm_source=github&amp;utm_medium=pages&amp;utm_campaign=hvac_workbench&amp;utm_content=gqxatj" target="_blank" rel="noopener">$500 Conversion Fix</a>
     </div>
+    <p class="fine">Refunds: within 30 days of purchase, as set out on the kit's Gumroad page.</p>
   </aside>
-  <footer>Fictional demo data only · MIT licensed · Not a hosted evaluation service or professional HVAC/plumbing advice. · <a href="https://launchfree.io/listings/hvac-intake-eval-pack" target="_blank" rel="noopener">Also on The Runway</a></footer>
-  <script src="lib/scorer.js"></script><script src="app.js"></script>
+  <footer>Fictional demo data only · MIT licensed · Not a hosted evaluation service or professional HVAC/plumbing advice. General guidance, not legal, tax or IT advice. Not affiliated with or endorsed by WebMCP. Not affiliated with or endorsed by LaunchFree. Thanks for your time. If this isn't right for you, please share it with someone it could help. · <a href="https://launchfree.io/listings/hvac-intake-eval-pack" target="_blank" rel="noopener">Also on The Runway</a></footer>
+  <script src="lib/scorer.js"></script><script src="lib/cases.js"></script><script src="app.js"></script>
 </body></html>
